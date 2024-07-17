@@ -176,8 +176,6 @@ HEADERS = $(wildcard include/*.h include/finufft/*.h)
 
 # included auto-generated code and xsimd header-lib dependency...
 src/spreadinterp.o: src/ker_horner_allw_loop_constexpr.h src/ker_lowupsampfac_horner_allw_loop_constexpr.c $(XSIMD_DIR)/include/xsimd/xsimd.hpp
-src/spreadinterp_32.o: src/ker_horner_allw_loop_constexpr.h src/ker_lowupsampfac_horner_allw_loop_constexpr.c $(XSIMD_DIR)/include/xsimd/xsimd.hpp
-
 
 # lib -----------------------------------------------------------------------
 # build library with double/single prec both bundled in...
