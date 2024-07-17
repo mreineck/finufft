@@ -45,8 +45,8 @@ FINUFFT_EXPORT int FINUFFT_CDECL indexSort(BIGINT *sort_indices, UBIGINT N1, UBI
                                            const finufft_spread_opts &opts);
 template<typename T>
 FINUFFT_EXPORT int FINUFFT_CDECL spreadinterpSorted(
-    const BIGINT *sort_indices, UBIGINT N1, UBIGINT N2, UBIGINT N3,
-    T *FINUFFT_RESTRICT data_uniform, UBIGINT N, T *FINUFFT_RESTRICT kx,
+    const BIGINT *sort_indices, const UBIGINT N1, const UBIGINT N2, const UBIGINT N3,
+    T *FINUFFT_RESTRICT data_uniform, const UBIGINT N, T *FINUFFT_RESTRICT kx,
     T *FINUFFT_RESTRICT ky, T *FINUFFT_RESTRICT kz, T *FINUFFT_RESTRICT data_nonuniform,
     const finufft_spread_opts &opts, int did_sort);
 template<typename T>
