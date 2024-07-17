@@ -447,8 +447,8 @@ static int spreadinterpSortedBatch(int batchSize, FINUFFT_PLAN p, std::complex<T
   for (int i = 0; i < batchSize; i++) {
     std::complex<T> *fwi = p->fwBatch + i * p->nf; // start of i'th fw array in wkspace
     std::complex<T> *ci  = cBatch + i * p->nj;     // start of i'th c array in cBatch
-    spreadinterpSorted(p->sortIndices, p->nf1, p->nf2, p->nf3, (T *)fwi, p->nj, p->X,
-                       p->Y, p->Z, (T *)ci, p->spopts, p->didSort);
+    spreadinterpSorted<T>(p->sortIndices, p->nf1, p->nf2, p->nf3, (T *)fwi, p->nj, p->X,
+                          p->Y, p->Z, (T *)ci, p->spopts, p->didSort);
   }
   return 0;
 }

@@ -348,8 +348,8 @@ template int indexSort(BIGINT *sort_indices, UBIGINT N1, UBIGINT N2, UBIGINT N3,
 
 template<typename T>
 int spreadinterpSorted(const BIGINT *sort_indices, const UBIGINT N1, const UBIGINT N2,
-                       const UBIGINT N3, T *data_uniform, const UBIGINT M,
-                       T *FINUFFT_RESTRICT kx, T *FINUFFT_RESTRICT ky,
+                       const UBIGINT N3, T *FINUFFT_RESTRICT data_uniform,
+                       const UBIGINT M, T *FINUFFT_RESTRICT kx, T *FINUFFT_RESTRICT ky,
                        T *FINUFFT_RESTRICT kz, T *FINUFFT_RESTRICT data_nonuniform,
                        const finufft_spread_opts &opts, int did_sort)
 /* Logic to select the main spreading (dir=1) vs interpolation (dir=2) routine.
@@ -368,18 +368,18 @@ int spreadinterpSorted(const BIGINT *sort_indices, const UBIGINT N1, const UBIGI
 
   return 0;
 }
-template int spreadinterpSorted(const BIGINT *sort_indices, const UBIGINT N1,
-                                const UBIGINT N2, const UBIGINT N3, float *data_uniform,
-                                const UBIGINT M, float *FINUFFT_RESTRICT kx,
-                                float *FINUFFT_RESTRICT ky, float *FINUFFT_RESTRICT kz,
-                                float *FINUFFT_RESTRICT data_nonuniform,
-                                const finufft_spread_opts &opts, int did_sort);
-template int spreadinterpSorted(const BIGINT *sort_indices, const UBIGINT N1,
-                                const UBIGINT N2, const UBIGINT N3, double *data_uniform,
-                                const UBIGINT M, double *FINUFFT_RESTRICT kx,
-                                double *FINUFFT_RESTRICT ky, double *FINUFFT_RESTRICT kz,
-                                double *FINUFFT_RESTRICT data_nonuniform,
-                                const finufft_spread_opts &opts, int did_sort);
+template int spreadinterpSorted(
+    const BIGINT *sort_indices, const UBIGINT N1, const UBIGINT N2, const UBIGINT N3,
+    float *FINUFFT_RESTRICT data_uniform, const UBIGINT M, float *FINUFFT_RESTRICT kx,
+    float *FINUFFT_RESTRICT ky, float *FINUFFT_RESTRICT kz,
+    float *FINUFFT_RESTRICT data_nonuniform, const finufft_spread_opts &opts,
+    int did_sort);
+template int spreadinterpSorted(
+    const BIGINT *sort_indices, const UBIGINT N1, const UBIGINT N2, const UBIGINT N3,
+    double *FINUFFT_RESTRICT data_uniform, const UBIGINT M, double *FINUFFT_RESTRICT kx,
+    double *FINUFFT_RESTRICT ky, double *FINUFFT_RESTRICT kz,
+    double *FINUFFT_RESTRICT data_nonuniform, const finufft_spread_opts &opts,
+    int did_sort);
 
 // --------------------------------------------------------------------------
 template<typename T>
