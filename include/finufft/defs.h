@@ -194,7 +194,7 @@ static inline void MY_OMP_SET_NUM_THREADS(int) {}
 // --------  FINUFFT's plan object, prec-switching version ------------------
 // NB: now private (the public C++ or C etc user sees an opaque pointer to it)
 
-#include <finufft/fft.h> // (must come after complex.h)
+#include <finufft/fft.h>
 
 // group together a bunch of type 3 rescaling/centering/phasing parameters:
 template<typename T> struct type3params {
@@ -203,41 +203,41 @@ template<typename T> struct type3params {
   T X3, C3, D3, h3, gam3; // z
 };
 
-typedef struct FINUFFT_PLAN_S { // the main plan object, fully C++
+struct FINUFFT_PLAN_S { // the main plan object, fully C++
 
-  int type;                     // transform type (Rokhlin naming): 1,2 or 3
-  int dim;                      // overall dimension: 1,2 or 3
-  int ntrans;          // how many transforms to do at once (vector or "many" mode)
-  BIGINT nj;           // num of NU pts in type 1,2 (for type 3, num input x pts)
-  BIGINT nk;           // number of NU freq pts (type 3 only)
-  FLT tol;             // relative user tolerance
-  int batchSize;       // # strength vectors to group together for FFTW, etc
-  int nbatch;          // how many batches done to cover all ntrans vectors
+  int type;             // transform type (Rokhlin naming): 1,2 or 3
+  int dim;              // overall dimension: 1,2 or 3
+  int ntrans;           // how many transforms to do at once (vector or "many" mode)
+  BIGINT nj;            // num of NU pts in type 1,2 (for type 3, num input x pts)
+  BIGINT nk;            // number of NU freq pts (type 3 only)
+  FLT tol;              // relative user tolerance
+  int batchSize;        // # strength vectors to group together for FFTW, etc
+  int nbatch;           // how many batches done to cover all ntrans vectors
 
-  BIGINT ms;           // number of modes in x (1) dir (historical CMCL name) = N1
-  BIGINT mt;           // number of modes in y (2) direction = N2
-  BIGINT mu;           // number of modes in z (3) direction = N3
-  BIGINT N;            // total # modes (prod of above three)
+  BIGINT ms;            // number of modes in x (1) dir (historical CMCL name) = N1
+  BIGINT mt;            // number of modes in y (2) direction = N2
+  BIGINT mu;            // number of modes in z (3) direction = N3
+  BIGINT N;             // total # modes (prod of above three)
 
-  BIGINT nf1;          // size of internal fine grid in x (1) direction
-  BIGINT nf2;          // " y (2)
-  BIGINT nf3;          // " z (3)
-  BIGINT nf;           // total # fine grid points (product of the above three)
+  BIGINT nf1;           // size of internal fine grid in x (1) direction
+  BIGINT nf2;           // " y (2)
+  BIGINT nf3;           // " z (3)
+  BIGINT nf;            // total # fine grid points (product of the above three)
 
-  int fftSign;         // sign in exponential for NUFFT defn, guaranteed to be +-1
+  int fftSign;          // sign in exponential for NUFFT defn, guaranteed to be +-1
 
-  FLT *phiHat1;        // FT of kernel in t1,2, on x-axis mode grid
-  FLT *phiHat2;        // " y-axis.
-  FLT *phiHat3;        // " z-axis.
+  FLT *phiHat1;         // FT of kernel in t1,2, on x-axis mode grid
+  FLT *phiHat2;         // " y-axis.
+  FLT *phiHat3;         // " z-axis.
 
-  CPX *fwBatch;        // (batches of) fine grid(s) for FFTW to plan
-                       // & act on. Usually the largest working array
+  CPX *fwBatch;         // (batches of) fine grid(s) for FFTW to plan
+                        // & act on. Usually the largest working array
 
-  BIGINT *sortIndices; // precomputed NU pt permutation, speeds spread/interp
-  bool didSort;        // whether binsorting used (false: identity perm used)
+  BIGINT *sortIndices;  // precomputed NU pt permutation, speeds spread/interp
+  bool didSort;         // whether binsorting used (false: identity perm used)
 
-  FLT *X, *Y, *Z;      // for t1,2: ptr to user-supplied NU pts (no new allocs).
-                       // for t3: allocated as "primed" (scaled) src pts x'_j, etc
+  FLT *X, *Y, *Z;       // for t1,2: ptr to user-supplied NU pts (no new allocs).
+                        // for t3: allocated as "primed" (scaled) src pts x'_j, etc
 
   // type 3 specific
   FLT *S, *T, *U;           // pointers to user's target NU pts arrays (no new allocs)
@@ -254,7 +254,6 @@ typedef struct FINUFFT_PLAN_S { // the main plan object, fully C++
 #endif
   finufft_opts opts; // this and spopts could be made ptrs
   finufft_spread_opts spopts;
-
-} FINUFFT_PLAN_S;
+};
 
 #endif // DEFS_H
