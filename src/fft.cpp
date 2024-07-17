@@ -5,8 +5,6 @@ using namespace std;
 
 #ifdef FINUFFT_USE_DUCC0
 #include "ducc0/fft/fftnd_impl.h"
-#else
-std::mutex My_fftw_plan<FLT>::mut;
 #endif
 
 std::vector<int> gridsize_for_fft(FINUFFT_PLAN p) {
