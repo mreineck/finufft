@@ -91,7 +91,7 @@ inline constexpr BIGINT MAX_NF = BIGINT(1e12);
 inline constexpr BIGINT MAX_NU_PTS = BIGINT(1e14);
 
 // -------------- Math consts (not in math.h) and useful math macros ----------
-#include <math.h>
+#include <cmath>
 
 // either-precision unit imaginary number...
 inline constexpr CPX IMA(FLT(0), FLT(1));
@@ -250,7 +250,7 @@ typedef struct FINUFFT_PLAN_S { // the main plan object, fully C++
 
   // other internal structs; each is C-compatible of course
 #ifndef FINUFFT_USE_DUCC0
-  FFTW_PLAN fftwPlan;
+  My_fftw_plan<FLT> fftwPlan;
 #endif
   finufft_opts opts; // this and spopts could be made ptrs
   finufft_spread_opts spopts;
