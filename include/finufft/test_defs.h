@@ -20,13 +20,14 @@
 #include <finufft/utils_precindep.h>
 // prec-switching (via SINGLE) to set up FLT, CPX, BIGINT, FINUFFT1D1, etc...
 #include <finufft/defs.h>
+#include <finufft/fft.h>
 
 // std stuff for tester src
+#include <cmath>
 #include <cstdio>
+#include <cstdlib>
 #include <iomanip>
 #include <iostream>
-#include <math.h>
-#include <stdlib.h>
 #include <vector>
 
 #endif // TEST_DEFS_H

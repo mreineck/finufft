@@ -19,6 +19,9 @@
 // public header gives access to f_opts, f_spread_opts, f_plan...
 // (and clobbers FINUFFT* macros; watch out!)
 #include <finufft.h>
+#ifndef FINUFFT_USE_DUCC0
+#include "finufft/fftw_defs.h"
+#endif
 
 // --------------- Private data types for compilation in either prec ---------
 // Devnote: must match those in relevant prec of public finufft.h interface!
@@ -90,7 +93,7 @@ inline constexpr BIGINT MAX_NF = BIGINT(1e12);
 inline constexpr BIGINT MAX_NU_PTS = BIGINT(1e14);
 
 // -------------- Math consts (not in math.h) and useful math macros ----------
-#include <math.h>
+#include <cmath>
 
 // either-precision unit imaginary number...
 inline constexpr CPX IMA(FLT(0), FLT(1));
@@ -114,7 +117,7 @@ inline constexpr FLT EPSILON = std::numeric_limits<FLT>::epsilon();
 // Random numbers: crappy unif random number generator in [0,1).
 // These macros should probably be replaced by modern C++ std lib or random123.
 // (RAND_MAX is in stdlib.h)
-#include <stdlib.h>
+#include <cstdlib>
 static inline FLT rand01() { return FLT(rand()) / FLT(RAND_MAX); }
 // unif[-1,1]:
 static inline FLT randm11() { return 2 * rand01() - FLT(1); }
@@ -200,8 +203,6 @@ static inline void MY_OMP_SET_NUM_THREADS(int) {}
 // --------  FINUFFT's plan object, prec-switching version ------------------
 // NB: now private (the public C++ or C etc user sees an opaque pointer to it)
 
-#include <finufft/fft.h> // (must come after complex.h)
-
 // group together a bunch of type 3 rescaling/centering/phasing parameters:
 template<typename T> struct type3params {
   T X1, C1, D1, h1, gam1; // x dim: X=halfwid C=center D=freqcen h,gam=rescale
@@ -256,7 +257,7 @@ typedef struct FINUFFT_PLAN_S { // the main plan object, fully C++
 
   // other internal structs; each is C-compatible of course
 #ifndef FINUFFT_USE_DUCC0
-  FFTW_PLAN fftwPlan;
+  Finufft_FFTW_plan<FLT> fftwPlan;
 #endif
   finufft_opts opts; // this and spopts could be made ptrs
   finufft_spread_opts spopts;
